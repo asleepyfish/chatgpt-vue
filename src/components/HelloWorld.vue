@@ -2,7 +2,7 @@
   <div class="hello">
     <el-row>
       <el-col :span="12">
-        <span class="beautiful">流式问答</span>
+        <span class="span-format">流式问答</span>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <el-row>
@@ -55,7 +55,14 @@ export default {
           // 将数据添加到文本框中
           this.chatContent = xhr.responseText;
         }
-      };
+        // 如果 readyState 是 4，表示完成请求
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            // 避免接受过程中缺少字符
+            this.chatContent = xhr.responseText;
+          }
+        }
+      }
       // 发送请求
       xhr.send();
     }
@@ -90,7 +97,7 @@ export default {
   width: 100vw;
 }
 
-span.beautiful {
+span.span-format {
   display: inline-block;
   padding: 10px;
   background-color: #f0f0f0;
